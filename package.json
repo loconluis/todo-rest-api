@@ -1,0 +1,22 @@
+{
+  "name": "todo-app",
+  "version": "0.1.0",
+  "description": "ToDo API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loconluis/todo-rest-api.git"
+  },
+  "author": "Luis Locon <luis.locon@gmail.com> (https://twitter.com/LoconLuis)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loconluis/todo-rest-api/issues"
+  },
+  "homepage": "https://github.com/loconluis/todo-rest-api#readme",
+  "dependencies": {
+    "mongodb": "^2.2.33"
+  }
+}
