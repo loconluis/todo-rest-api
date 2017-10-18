@@ -3,13 +3,14 @@ const request = require('supertest')
 
 const { app } = require('../server')
 const { Todo } = require('../models/todo.model')
-
+// Before a test, drop the database
 beforeEach(done => {
   Todo.remove({})
     .then(() => done())
 })
 
 describe('POST /todos', () => {
+  // Test if todo was create it on DB
   it('Should create a new ToDo', (done) => {
     let text = 'Test todo text'
 
@@ -34,7 +35,7 @@ describe('POST /todos', () => {
           .catch(err => done(err))
       })
   })
-
+  // Test verify valid data send it by post to save on Mongo
   it('Should not create todo with invalid body data', (done) => {
     request(app)
       .post('/todos')
