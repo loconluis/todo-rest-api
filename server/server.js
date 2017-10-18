@@ -9,6 +9,8 @@ const { Todo } = require('./models/todo.model') // Model of ToDo
 const { User } = require('./models/user.model') // Model of User
 // App instance of express
 const app = express()
+// PORT variable
+const port = process.env.PORT || 3000
 // middleware of bodyparser
 app.use(bodyParser.json())
 // Post a new todo on db
@@ -44,8 +46,8 @@ app.get('/todos/:id', (req, res) => {
     .catch(e => res.status(400).send({message: 'Fail request' + e}))
 })
 // Running port
-app.listen(3000, () => {
-  console.log('Server is running on port 3000')
+app.listen(port, () => {
+  console.log(`Server is running on ${port}`)
 })
 
 module.exports = {app}
