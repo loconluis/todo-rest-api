@@ -1,7 +1,7 @@
 const mongoose = require('./dbcon')
 let Schema = mongoose.Schema
 
-let UserSchema = new Schema({
+let userSchema = new Schema({
   email: {
     type: String,
     require: true,
@@ -10,4 +10,4 @@ let UserSchema = new Schema({
   }
 })
 
-module.exports.User = mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', userSchema)
