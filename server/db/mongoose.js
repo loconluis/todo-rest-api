@@ -4,6 +4,4 @@ mongoose.Promise = global.Promise
 // connection string
 mongoose.connect('mongodb://localhost:27017/TodoApp', {useMongoClient: true})
 
-module.exports = {
-  mongoose
-}
+module.exports = {mongoose}

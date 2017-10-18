@@ -1,4 +1,5 @@
-const mongoose = require('./dbcon')
+const mongoose = require('mongoose')
+
 let Schema = mongoose.Schema
 
 let userSchema = new Schema({
@@ -10,4 +11,6 @@ let userSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model('User', userSchema)
+let User = mongoose.model('User', userSchema)
+
+module.exports = { User }
