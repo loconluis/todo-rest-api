@@ -15,12 +15,17 @@ app.post('/todos', (req, res) => {
   let todo = new Todo({
     text: req.body.text
   })
-
+  // Save the doc on mongodb
   todo.save()
     .then(result => res.send(result))
     .catch(err => res.status(400).send(err))
+})
 
-  // console.log(req.body)
+app.get('/todos', (req, res) => {
+  // getting todos
+  Todo.find()
+    .then((todos) => res.send({todos}))
+    .catch(err => res.status(400).send(err))
 })
 
 // Running port
