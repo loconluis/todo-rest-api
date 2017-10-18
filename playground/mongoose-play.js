@@ -9,7 +9,7 @@ mongoose.connect('mongodb://localhost:27017/TodoApp', {useMongoClient: true})
 let Todo = mongoose.model('Todo', {
   text: {
     type: String,
-    require: true,
+    required: true,
     minlength: 1,
     trim: true
   },
@@ -23,14 +23,13 @@ let Todo = mongoose.model('Todo', {
   }
 })
 
-// let newTodo = new Todo({
-//   text: 'Cook Dinner'
-// })
+let newTodo = new Todo({
+})
 
-// // saving a todo
-// newTodo.save()
-//   .then(doc => console.log(`Saved todo ${doc}`))
-//   .catch(e => console.log(`Unable to save Todo ${e}`))
+// saving a todo
+newTodo.save()
+  .then(doc => console.log(`Saved todo ${doc}`))
+  .catch(e => console.log(`Unable to save Todo ${e}`))
 
 // // the challenge
 // let _newTodo = new Todo({
@@ -43,11 +42,11 @@ let Todo = mongoose.model('Todo', {
 //   .then(doc => console.log(`Saved todo ${doc}`))
 //   .catch(e => console.log(`Unable to save Todo ${e}`))
 
-let User = mongoose.model('User', {
-  email: {
-    type: String,
-    require: true,
-    trim: true,
-    minlength: 1
-  }
-})
+// let User = mongoose.model('User', {
+//   email: {
+//     type: String,
+//     require: true,
+//     trim: true,
+//     minlength: 1
+//   }
+// })
