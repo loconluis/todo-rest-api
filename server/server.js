@@ -31,8 +31,7 @@ app.get('/todos', (req, res) => {
 // get an specific todo with ID
 app.get('/todos/:id', (req, res) => {
   const id = req.params.id
-
-  if (!ObjectID(id)) { return res.status(404).send() }
+  if (!ObjectID.isValid(id)) { return res.status(404).send({message: 'INVALID ID'}) }
 
   // if ID is valid then search
   Todo.findById(id)
