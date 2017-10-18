@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/loconluis/todo-rest-api#readme",
   "dependencies": {
-    "mongodb": "^2.2.33"
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.12.3"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
   }
 }
