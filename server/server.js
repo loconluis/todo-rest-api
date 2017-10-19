@@ -10,6 +10,7 @@ const { ObjectID } = require('mongodb')
 const { mongoose } = require('./db/mongoose') // connection instance
 const { Todo } = require('./models/todo.model') // Model of ToDo
 const { User } = require('./models/user.model') // Model of User
+const { authenticate } = require('./middleware/authenticate')
 // App instance of express
 const app = express()
 // PORT variable
@@ -92,6 +93,7 @@ app.patch('/todos/:id', (req, res) => {
     })
     .catch(err => res.status(400).send({message: 'Fail request' + err}))
 })
+
 // ---------------------User routes ----------------------
 // Post a new user on db
 app.post('/users', (req, res) => {
@@ -107,6 +109,11 @@ app.post('/users', (req, res) => {
       res.header('x-auth', token).send(user) // personal header to set the auth
     })
     .catch(err => res.status(400).send(err))
+})
+
+// authorized profile
+app.get('/users/me', authenticate, (req, res) => {
+  res.send(req.user)
 })
 
 // Running port

@@ -42,7 +42,7 @@ UserSchema.methods.toJSON = function () {
 
   return _.pick(userObject, ['_id', 'email'])
 }
-
+// generate a jwt token for a user
 UserSchema.methods.generateAuthToken = function () {
   // this scope take a Schema
   let access = 'auth'
@@ -51,6 +51,22 @@ UserSchema.methods.generateAuthToken = function () {
   this.tokens.push({access, token})
 
   return this.save().then(() => { return token })
+}
+// find a user by token
+UserSchema.statics.findByToken = function (token) {
+  let decoded
+
+  try {
+    decoded = jwt.verify(token, 'abc123')
+  } catch (e) {
+    return Promise.reject()
+  }
+
+  return this.findOne({
+    '_id': decoded._id,
+    'tokens.token': token,
+    'tokens.access': 'auth'
+  })
 }
 
 let User = mongoose.model('User', UserSchema)
