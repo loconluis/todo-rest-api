@@ -90,7 +90,23 @@ app.patch('/todos/:id', (req, res) => {
 
       res.status(200).send({todo})
     })
-    .catch(err => res.status(400).send())
+    .catch(err => res.status(400).send({message: 'Fail request' + err}))
+})
+// ---------------------User routes ----------------------
+// Post a new user on db
+app.post('/users', (req, res) => {
+  let body = _.pick(req.body, ['email', 'password'])
+  let user = new User(body)
+
+  // Save the doc on mongodb
+  user.save()
+    .then(() => {
+      return user.generateAuthToken() // method in user model to generate a token
+    })
+    .then(token => {
+      res.header('x-auth', token).send(user) // personal header to set the auth
+    })
+    .catch(err => res.status(400).send(err))
 })
 
 // Running port
