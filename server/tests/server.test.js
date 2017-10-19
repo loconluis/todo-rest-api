@@ -92,6 +92,7 @@ describe('GET /todos', () => {
   })
 })
 
+// GET /todos/:id
 describe('GET /todo/:id', () => {
   it('Should return todo doc', (done) => {
     request(app)
@@ -118,6 +119,49 @@ describe('GET /todo/:id', () => {
     request(app)
       .get('/todos/123abc')
       .expect(404)
+      .end(done)
+  })
+})
+
+// DEL /todos/:id
+describe('DELET /todos/:id', () => {
+  it('Should remove a todo', (done) => {
+    request(app)
+      .delete(`/todos/${todos[0]._id.toHexString()}`)
+      .expect(200)
+      .expect(res => {
+        expect(res.body.todo._id).toBe(todos[0]._id.toHexString())
+      })
+      .end((err, res) => {
+        if (err) { return done(err) }
+        // query to truly delete the todo
+        Todo.findById(res.body.todo._id)
+          .then(todo => {
+            expect(todo).toNotExist()
+            done()
+          })
+          .catch(e => done(e))
+      })
+  })
+
+  it('Should return a 404 if todo not found', (done) => {
+    const _pid = new ObjectID().toHexString()
+    request(app)
+      .delete(`/todos/${_pid}`)
+      .expect(404)
+      .expect(res => {
+        expect(res.body.message).toBe('NOT RESULTS')
+      })
+      .end(done)
+  })
+
+  it('Should return 404 if obj id is invalid', (done) => {
+    request(app)
+      .delete('/todos/123abc')
+      .expect(404)
+      .expect(res => {
+        expect(res.body.message).toBe('NOT VALID ID')
+      })
       .end(done)
   })
 })
