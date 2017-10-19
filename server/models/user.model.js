@@ -35,6 +35,7 @@ let UserSchema = new Schema({
   }]
 })
 
+// @override method of mongoose
 UserSchema.methods.toJSON = function () {
   // this scope take a Schema
   let userObject = this.toObject()
