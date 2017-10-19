@@ -1,3 +1,5 @@
+require('./config/config')
+
 // Server modules
 const _ = require('lodash')
 const express = require('express')
@@ -11,7 +13,7 @@ const { User } = require('./models/user.model') // Model of User
 // App instance of express
 const app = express()
 // PORT variable
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 // middleware of bodyparser
 app.use(bodyParser.json())
 // Post a new todo on db
