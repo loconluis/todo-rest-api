@@ -11,8 +11,14 @@ Todo api is a CRUD, made using [Node v6.1x.x](https://nodejs.org/es/)
 
 >**POST**
 > - **/todos**: Send a JSON of data to db an saved it!
-> - **/todos/:id**: **Process
 
+
+>**DELETE**
+> - **/todos/:id**: Delete a document by ID!
+
+
+>**PATCH**
+> - **/todos/:id**: Update a todo, change the timestap of completedAt, if completed is comming true.
 
 
 
