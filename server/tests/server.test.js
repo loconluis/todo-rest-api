@@ -231,6 +231,7 @@ describe('POST /users', () => {
             expect(user.password).toNotBe(password)
             done()
           })
+          .catch(e => done(e))
       })
   })
 
@@ -251,5 +252,61 @@ describe('POST /users', () => {
       })
       .expect(400)
       .end(done)
+  })
+})
+
+// Test for login route
+describe('POST /users/login', () => {
+  it('Should login user an return auth token', (done) => {
+    request(app)
+      .post('/users/login')
+      .send({
+        email: users[1].email,
+        password: users[1].password
+      })
+      .expect(200)
+      .expect(res => {
+        expect(res.headers['x-auth']).toExist()
+      })
+      .end((err, res) => {
+        if (err) {
+          return done(err)
+        }
+
+        User.findById({_id: users[1]._id})
+          .then(user => {
+            expect(user.tokens[0]).toInclude({
+              access: 'auth',
+              token: res.header['x-auth']
+            })
+            done()
+          })
+          .catch(e => done(e))
+      })
+  })
+
+  it('Should reject invalid login', (done) => {
+    request(app)
+    .post('/users/login')
+    .send({
+      email: users[1].email,
+      password: users[1].password + 'acb'
+    })
+    .expect(400)
+    .expect(res => {
+      expect(res.headers['x-auth']).toNotExist()
+    })
+    .end((err, res) => {
+      if (err) {
+        return done(err)
+      }
+
+      User.findById({_id: users[1]._id})
+        .then(user => {
+          expect(user.tokens.length).toBe(0)
+          done()
+        })
+        .catch(e => done(e))
+    })
   })
 })
