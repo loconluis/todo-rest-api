@@ -123,24 +123,6 @@ app.post('/users/login', (req, res) => {
       return user.generateAuthToken().then(token => res.header('x-auth', token).send(user))
     })
     .catch(e => res.status(400).send())
-
-  // User.findOne({email})
-  //   .then(user => {
-  //     let flag = bcrypt.compare(password, user.password, (err, res) => {
-  //       if (err) {
-  //         console.log(err)
-  //       }
-
-  //       return res
-  //     })
-
-  //     if (!flag) {
-  //       return res.status(400).send()
-  //     }
-
-  //     res.status(200).send(user)
-  //   })
-  //   .catch(e => res.status(401).send())
 })
 
 // Running port
