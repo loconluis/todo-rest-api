@@ -70,7 +70,7 @@ UserSchema.statics.findByToken = function (token) {
   })
 }
 // hashing passwords using mongoose middleware
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {  // trigger a middleware when event save is on
   if (this.isModified('password')) {
     bcrypt.genSalt(10, (err, salt) => {
       bcrypt.hash(this.password, salt, (err, hash) => {
