@@ -69,6 +69,24 @@ UserSchema.statics.findByToken = function (token) {
     'tokens.access': 'auth'
   })
 }
+// find by credentials
+UserSchema.statics.findByCredentials = function (email, password) {
+  return this.findOne({email})
+          .then(user => {
+            if (!user) {
+              return Promise.reject()
+            }
+
+            return new Promise((resolve, reject) => {
+              bcrypt.compare(password, user.password, (err, res) => {
+                if (err) {
+                  reject(err)
+                }
+                resolve(user)
+              })
+            })
+          })
+}
 // hashing passwords using mongoose middleware
 UserSchema.pre('save', function (next) {  // trigger a middleware when event save is on
   if (this.isModified('password')) {

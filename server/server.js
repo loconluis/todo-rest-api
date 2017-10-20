@@ -110,10 +110,37 @@ app.post('/users', (req, res) => {
     })
     .catch(err => res.status(400).send(err))
 })
-
 // authorized profile
 app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user)
+})
+// POST /users/login {email, password}
+app.post('/users/login', (req, res) => {
+  let body = _.pick(req.body, ['email', 'password'])
+
+  User.findByCredentials(body.email, body.password)
+    .then(user => {
+      return user.generateAuthToken().then(token => res.header('x-auth', token).send(user))
+    })
+    .catch(e => res.status(400).send())
+
+  // User.findOne({email})
+  //   .then(user => {
+  //     let flag = bcrypt.compare(password, user.password, (err, res) => {
+  //       if (err) {
+  //         console.log(err)
+  //       }
+
+  //       return res
+  //     })
+
+  //     if (!flag) {
+  //       return res.status(400).send()
+  //     }
+
+  //     res.status(200).send(user)
+  //   })
+  //   .catch(e => res.status(401).send())
 })
 
 // Running port
