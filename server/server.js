@@ -126,11 +126,11 @@ app.post('/users/login', (req, res) => {
 })
 // remove the token to get logout
 app.delete('/users/me/token', authenticate, (req, res) => {
-  req.users.removeToken(req.token)
+  req.user.removeToken(req.token)
     .then(() => {
       res.status(200).send()
     })
-    .catch(() => res.status(400).send())
+    .catch((e) => res.status(400).send())
 })
 
 // Running port
