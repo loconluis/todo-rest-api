@@ -2,7 +2,7 @@
 
 Todo api is a CRUD, made using [Node v6.1x.x](https://nodejs.org/es/)
 
-### Routes of use
+### Routes of Todos
 -------------
 >**GET**
 > - **/todos**: Return an array of objects/docs with all the Todos
@@ -20,7 +20,17 @@ Todo api is a CRUD, made using [Node v6.1x.x](https://nodejs.org/es/)
 >**PATCH**
 > - **/todos/:id**: Update a todo, change the timestap of completedAt, if completed is comming true.
 
+### Routes of Users
+-------------
+>**GET**
+> - **'/users/me'**: Just verify if users is logged in
 
+>**POST**
+> - **'/users'**: Sing up a new user.
+> - **'/users/login'**: Logged in an user.
+
+>**DELETE**
+> - **/users/me/token**: Remove and clear the session of user
 
 ### Dev Env
 
